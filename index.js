@@ -9,7 +9,7 @@ const IG_PASSWORD = "***REMOVED***";
 (async () => {
 
     var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-    var sub = subreddits[getRandomInt(subreddits.length)]
+    var sub = subreddits[getRandomInt(subreddits.length)]   
     getMEME(sub);
 
 })();
