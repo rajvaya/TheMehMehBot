@@ -1,18 +1,35 @@
 const { IgApiClient } = require('instagram-private-api');
 const { get } = require('request-promise');
 const musakui = require('musakui');
+const express = require('express')
+var cors = require('cors')
+const app = express()
+
+var port =  process.env.PORT || 3000;
+
+
+app.use(cors())
+ 
+app.get('/', function (req, res) {
+  res.send("Hellow from MEHMEH Bot");
+  var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
+    var sub = subreddits[getRandomInt(subreddits.length)]   
+     getMEME(sub);
+
+});
+
+
+
+app.listen(port,function(req,res){
+
+    console.log("Running...");
+    
+    });
 
 
 const IG_USERNAME = "themehmehbot";
 const IG_PASSWORD = "***REMOVED***";
 
-(async () => {
-
-    var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-    var sub = subreddits[getRandomInt(subreddits.length)]   
-    getMEME(sub);
-
-})();
 
 
 function getRandomInt(max) {
