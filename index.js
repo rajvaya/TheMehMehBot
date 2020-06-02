@@ -9,12 +9,14 @@ const app = express()
 
 
 var port =  process.env.PORT || 3000;
-cron.schedule("1 * * * *", () => {
+var task =cron.schedule('*/5 * * * *', () => {
     console.log(`this message logs every minute`);
     subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
     var sub = subreddits[getRandomInt(subreddits.length)] 
     getMEME(sub); 
-  });
+  },
+  {scheduled: false}
+  );
 
 app.use(cors())
  
@@ -22,6 +24,21 @@ app.get('/', function (req, res) {
   res.send("Hellow from MEHMEH Bot");
   
 });
+
+ 
+app.get('/start', function (req, res) {
+    res.send("Task Started");
+
+    task.start();
+    
+  });
+
+  app.get('/stop', function (req, res) {
+    res.send("Task Stopped");
+    task.stop();
+    
+  });
+
 
 
 
