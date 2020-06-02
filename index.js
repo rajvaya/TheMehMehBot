@@ -8,6 +8,16 @@ const IG_USERNAME = "themehmehbot";
 const IG_PASSWORD = "***REMOVED***";
 
 
+(async () => {
+
+    var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
+    var sub = subreddits[getRandomInt(subreddits.length)]
+    console.log(sub);
+    getMEME(sub);
+
+})();
+
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
@@ -50,59 +60,17 @@ async function postOnInsta(data) {
 
     if (publishResult.status == "ok") {
         console.log("Posted succesfully!!!")
+        ig.account.logout();
     } else {
         console.log("Erorr in posting to Instagram.....")
+        ig.account.logout();
+
     }
 
 
 
 
-
-
 }
-(async () => {
-
-    var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-    var sub = subreddits[getRandomInt(subreddits.length)]
-    console.log(sub);
-    getMEME(sub);
-
-    /// get a random subreddit
-
-    // console.log(JSON.stringify(auth));
-    // getJSON(url, function(error, response) {
-    //     global.data = response;
-    // }).then(function() {
-    //     console.log(global.data);
-    //     (async() => {
-
-    //         var caption = "THIS POST IS AUTOMETED USING NODEJS BOT "+ data.title + " \n\n\n \t\t\t Orignal post in " +
-    //             data.subreddit + " : " +
-    //             data.postLink +
-    //             " Follow us for the most dank memes on Instagram. 🔥🔥🔥 " +
-    //             "#meme #memes #bestmemes #instamemes #funny #funnymemes #dankmemes #edgymemes #spicymemes #nichememes #memepage #funniestmemes #dank #memesdaily #jokes #memesrlife #memestar #memesquad #humor #lmao #igmemes #lol #memeaccount #memer #relatablememes #funnyposts #sillymemes #nichememe #memetime";
-
-    //         const imageBuffer = await get({
-    //             url: data.url,
-    //             encoding: null,
-    //         });
-
-    //         //publish post
-    //         const publishResult = await ig.publish.photo({
-    //             file: imageBuffer,
-    //             caption: caption
-
-    //         });
-
- 
-
-
-    //     })();
-
-    // })
-
-
-})();
 
 
 
