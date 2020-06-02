@@ -3,19 +3,24 @@ const { get } = require('request-promise');
 const musakui = require('musakui');
 const express = require('express')
 var cors = require('cors')
+var cron = require('node-cron')
+
 const app = express()
 
-var port =  process.env.PORT || 3000;
 
+var port =  process.env.PORT || 3000;
+cron.schedule("1 * * * *", () => {
+    console.log(`this message logs every minute`);
+    subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
+    var sub = subreddits[getRandomInt(subreddits.length)] 
+    getMEME(sub); 
+  });
 
 app.use(cors())
  
 app.get('/', function (req, res) {
   res.send("Hellow from MEHMEH Bot");
-  var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-    var sub = subreddits[getRandomInt(subreddits.length)]   
-     getMEME(sub);
-
+  
 });
 
 
@@ -23,7 +28,8 @@ app.get('/', function (req, res) {
 app.listen(port,function(req,res){
 
     console.log("Running...");
-    
+
+
     });
 
 
