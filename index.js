@@ -1,18 +1,15 @@
 const { IgApiClient } = require('instagram-private-api');
 const { get } = require('request-promise');
-var getJSON = require('get-json')
 const musakui = require('musakui');
 
 
 const IG_USERNAME = "themehmehbot";
 const IG_PASSWORD = "***REMOVED***";
 
-
 (async () => {
 
     var subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
     var sub = subreddits[getRandomInt(subreddits.length)]
-    console.log(sub);
     getMEME(sub);
 
 })();
@@ -26,7 +23,6 @@ function getMEME(subreddit) {
     console.log("fetching........ meme form " + subreddit);
     musakui(subreddit)
         .then(result => {
-            console.log(result);
             console.log(result.title);
             postOnInsta(result);
         }
@@ -38,13 +34,11 @@ function getMEME(subreddit) {
 
 
 async function postOnInsta(data) {
-    console.log(data);
+   // console.log(data);
     const ig = new IgApiClient();
     ig.state.generateDevice(IG_USERNAME);
     const auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
-    console.log(JSON.stringify(auth));
     var caption = data.title + "\n\n\n\n\n\n\n\n" + "#meme #memes #funny #dankmemes #memesdaily #funnymemes #lol #dank #follow #humor #like #dankmeme #love #lmao #ol #comedy #instagram #tiktok #dailymemes #anime #edgymemes #fun #offensivememes #memepage #funnymeme #memestagram #memer #fortnite #haha #bhfyp";
-
     const imageBuffer = await get({
         url: data.media_url,
         encoding: null,
@@ -60,10 +54,10 @@ async function postOnInsta(data) {
 
     if (publishResult.status == "ok") {
         console.log("Posted succesfully!!!")
-        ig.account.logout();
+        ig.account.logout().then(console.log);
     } else {
         console.log("Erorr in posting to Instagram.....")
-        ig.account.logout();
+        ig.account.logout().then(console.log);
 
     }
 
