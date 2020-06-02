@@ -1,0 +1,16 @@
+{
+  "name": "instagram-meme-bot",
+  "version": "1.0.0",
+  "description": "auto meme posting bot for instagram ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "get-json": "^1.0.1",
+    "instagram-private-api": "^1.40.1",
+    "musakui": "^1.0.0"
+  }
+}
