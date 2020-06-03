@@ -2,52 +2,48 @@ const { IgApiClient } = require('instagram-private-api');
 const { get } = require('request-promise');
 const musakui = require('musakui');
 const express = require('express')
-var cors = require('cors')
+var cors = require('cors') 
 var cron = require('node-cron')
 
 const app = express()
 
 
-var port =  process.env.PORT || 3000;
-var task =cron.schedule('*/5 * * * *', () => {
-    console.log(`this message logs every minute`);
-    subreddits = ["memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-    var sub = subreddits[getRandomInt(subreddits.length)] 
-    getMEME(sub); 
-  },
-  {scheduled: false}
-  );
+var port = process.env.PORT || 3000;
+subreddits = ["wholesomememes","confusing_perspective", "SaimanSays","shittyragecomics","classicrage","adhdmeme","iiiiiiitttttttttttt","whothefuckup","AccidentalComedy","ragecomics","aSongOfMemesAndRage","hmmm","TheRawKnee","fffffffuuuuuuuuuuuu","treecomics","Dogfort","insanepeoplefacebook","AdviceAnimals","Funnypics","funny","trippinthroughtime","IndianDankMemes","okbuddyretard", "antimeme","vertical", "blursedimages", "comedyheaven", "pewdiepiesubmissions", "raimimemes", "historymemes", "lastimages", "memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
+var task = cron.schedule('*/3 * * * *', () => {
+    console.log(`Posting Meme Every 3 Minute`);
+    getMEME(subreddits[getRandomInt(subreddits.length)]);
+
+},
+    { scheduled: false }
+);
 
 app.use(cors())
- 
+
 app.get('/', function (req, res) {
-  res.send("Hellow from MEHMEH Bot");
-  
+    res.send("This is Home Page for MehMehBot");
 });
 
- 
+
 app.get('/start', function (req, res) {
     res.send("Task Started");
-
     task.start();
-    
-  });
+});
 
-  app.get('/stop', function (req, res) {
+app.get('/stop', function (req, res) {
     res.send("Task Stopped");
     task.stop();
-    
-  });
+});
 
 
 
 
-app.listen(port,function(req,res){
+app.listen(port, function (req, res) {
 
     console.log("Running...");
 
 
-    });
+});
 
 
 const IG_USERNAME = "themehmehbot";
@@ -68,40 +64,52 @@ function getMEME(subreddit) {
         }
 
         )
-        .catch(error => console.log(error));
+        .catch(error => {
+            return console.log(error);
+        });
 }
 
 
 
 async function postOnInsta(data) {
-   // console.log(data);
-    const ig = new IgApiClient();
-    ig.state.generateDevice(IG_USERNAME);
-    const auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
-    var caption = data.title + "\n\n\n\n\n\n\n\n" + "#meme #memes #funny #dankmemes #memesdaily #funnymemes #lol #dank #follow #humor #like #dankmeme #love #lmao #ol #comedy #instagram #tiktok #dailymemes #anime #edgymemes #fun #offensivememes #memepage #funnymeme #memestagram #memer #fortnite #haha #bhfyp";
-    const imageBuffer = await get({
-        url: data.media_url,
-        encoding: null,
-    });
+    // console.log(data);
+    try {
+        const ig = new IgApiClient();
+        ig.state.generateDevice(IG_USERNAME);
+        const auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
+        console.log("Logged in as " + auth.username);
+        var caption = data.title + "\n\n\n\n\n\n\n\n" + "#meme #memes #funny #dankmemes #memesdaily #funnymemes #lol #dank #follow #humor #like #dankmeme #love #lmao #ol #comedy #instagram #tiktok #dailymemes #anime #edgymemes #fun #offensivememes #memepage #funnymeme #memestagram #memer #fortnite #haha #bhfyp";
+        const imageBuffer = await get({
+            url: data.media_url,
+            encoding: null,
+        });
 
-    const publishResult = await ig.publish.photo({
-        file: imageBuffer,
-        caption: caption
+        console.log("posting your meme");
+        const publishResult = await ig.publish.photo({
+            file: imageBuffer,
+            caption: caption
 
-    });
+        });
 
-    console.log(publishResult);
 
-    if (publishResult.status == "ok") {
-        console.log("Posted succesfully!!!")
-        ig.account.logout().then(console.log);
-    } else {
-        console.log("Erorr in posting to Instagram.....")
-        ig.account.logout().then(console.log);
+
+        if (publishResult.status == "ok") {
+            console.log("Posted succesfully!!!")
+            ig.account.logout().then(console.log);
+        } else {
+            console.log("Erorr in posting to Instagram.....")
+            ig.account.logout().then(console.log);
+
+        }
 
     }
+    catch (error) {
+
+        console.log("got error but dont worry we are trying again")
+        getMEME(subreddits[getRandomInt(subreddits.length)]);
 
 
+    }
 
 
 }
