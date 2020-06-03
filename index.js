@@ -63,8 +63,7 @@ function getMEME(subreddit) {
         .then(result => {
             console.log("found meme with this caption "+result.title);
             postOnInsta(result);
-            console.log("got error but dont worry we are trying again")
-            getMEME(subreddits[getRandomInt(subreddits.length)]);
+          
         }
 
         )
