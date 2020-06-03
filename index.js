@@ -4,6 +4,8 @@ const musakui = require('musakui');
 const express = require('express')
 var cors = require('cors') 
 var cron = require('node-cron')
+const tags = require("./hashtags");
+
 
 const app = express()
 
@@ -59,8 +61,10 @@ function getMEME(subreddit) {
     console.log("fetching........ meme form " + subreddit);
     musakui(subreddit)
         .then(result => {
-            console.log(result.title);
+            console.log("found meme with this caption "+result.title);
             postOnInsta(result);
+            console.log("got error but dont worry we are trying again")
+            getMEME(subreddits[getRandomInt(subreddits.length)]);
         }
 
         )
@@ -78,7 +82,7 @@ async function postOnInsta(data) {
         ig.state.generateDevice(IG_USERNAME);
         const auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
         console.log("Logged in as " + auth.username);
-        var caption = data.title + "\n\n\n\n\n\n\n\n" + "#meme #memes #funny #dankmemes #memesdaily #funnymemes #lol #dank #follow #humor #like #dankmeme #love #lmao #ol #comedy #instagram #tiktok #dailymemes #anime #edgymemes #fun #offensivememes #memepage #funnymeme #memestagram #memer #fortnite #haha #bhfyp";
+        var caption = data.title + ".\n.\n.\n.\n.\n.\n" + tags[getRandomInt[tags.length]];
         const imageBuffer = await get({
             url: data.media_url,
             encoding: null,
@@ -96,9 +100,13 @@ async function postOnInsta(data) {
         if (publishResult.status == "ok") {
             console.log("Posted succesfully!!!")
             ig.account.logout().then(console.log);
+            console.log("Logged Out");
+
         } else {
             console.log("Erorr in posting to Instagram.....")
             ig.account.logout().then(console.log);
+            console.log("Logged Out");
+            getMEME(subreddits[getRandomInt(subreddits.length)]);
 
         }
 
@@ -106,6 +114,8 @@ async function postOnInsta(data) {
     catch (error) {
 
         console.log("got error but dont worry we are trying again")
+        ig.account.logout().then(console.log);
+        console.log("Logged Out");
         getMEME(subreddits[getRandomInt(subreddits.length)]);
 
 
