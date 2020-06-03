@@ -12,7 +12,7 @@ const app = express()
 
 var port = process.env.PORT || 3000;
 subreddits = ["wholesomememes","confusing_perspective", "SaimanSays","shittyragecomics","classicrage","adhdmeme","iiiiiiitttttttttttt","whothefuckup","AccidentalComedy","ragecomics","aSongOfMemesAndRage","hmmm","TheRawKnee","fffffffuuuuuuuuuuuu","treecomics","Dogfort","insanepeoplefacebook","AdviceAnimals","Funnypics","funny","trippinthroughtime","IndianDankMemes","okbuddyretard", "antimeme","vertical", "blursedimages", "comedyheaven", "pewdiepiesubmissions", "raimimemes", "historymemes", "lastimages", "memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia", "ComedyCemetery", "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-var task = cron.schedule('*/3 * * * *', () => {
+var task = cron.schedule('* * * * *', () => {
     console.log(`Posting Meme Every 3 Minute`);
     getMEME(subreddits[getRandomInt(subreddits.length)]);
 
@@ -82,7 +82,7 @@ async function postOnInsta(data) {
         ig.state.generateDevice(IG_USERNAME);
         const auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
         console.log("Logged in as " + auth.username);
-        var caption = data.title + ".\n.\n.\n.\n.\n.\n" + tags[getRandomInt[tags.length]];
+        var caption = data.title + ".\n.\n.\n.\n.\n.\n" + tags[getRandomInt(tags.length)];
         const imageBuffer = await get({
             url: data.media_url,
             encoding: null,
