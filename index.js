@@ -91,8 +91,7 @@ async function postOnInsta(data) {
         });
 
         if (publishResult.status == "ok") {
-            publishResult
-            console.log(publishResult)
+            console.log("POSTED SUCCESFULLY");
             await  ig.account.logout().then(console.log);
             console.log("Logged Out");
 
