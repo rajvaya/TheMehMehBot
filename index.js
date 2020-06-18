@@ -12,8 +12,8 @@ const app = express()
 
 var port = process.env.PORT || 3000;
 subreddits = ["wholesomememes","confusing_perspective", "SaimanSays","shittyragecomics","classicrage","adhdmeme","iiiiiiitttttttttttt","whothefuckup","AccidentalComedy","ragecomics","aSongOfMemesAndRage","hmmm","TheRawKnee","fffffffuuuuuuuuuuuu","Dogfort","insanepeoplefacebook","AdviceAnimals","Funnypics","funny","trippinthroughtime","IndianDankMemes","okbuddyretard", "antimeme","vertical", "comedyheaven", "pewdiepiesubmissions", "raimimemes",   "memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia",  "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
-var task = cron.schedule('*/10 * * * *', () => {
-    console.log(`Posting Meme Every 11 Minute`);
+var task = cron.schedule('*/7 * * * *', () => {
+    console.log(`Posting Meme Every 7 Minute`);
     getMEME(subreddits[getRandomInt(subreddits.length)]);
 },
     { scheduled: false }
