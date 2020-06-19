@@ -67,13 +67,18 @@ function getMEME(subreddit) {
 }
 
 
-
+  var auth;
 async function postOnInsta(data) {
     // console.log(data);
     try {
         ig.state.generateDevice(IG_USERNAME);
-        const auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
+       if(auth==undefined){
+        auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
         console.log("Logged in as " + auth.username);
+       }
+       else{
+        console.log("User Found as " + auth.username);
+       }
         var caption = data.title + ".\n.\n.\n.\n.\n.\n" + tags[getRandomInt(tags.length)];
         const imageBuffer = await get({
             url: data.media_url,
@@ -89,26 +94,22 @@ async function postOnInsta(data) {
 
         if (publishResult.status == "ok") {
             console.log("POSTED SUCCESFULLY");
-            await  ig.account.logout().then(console.log);
-            console.log("Logged Out");
+            // await  ig.account.logout().then(console.log);
+            // console.log("Logged Out");
 
         } else {
             console.log("Erorr in posting to Instagram.....")
-            await ig.account.logout().then(console.log);
-            console.log("Logged Out");
+            // await ig.account.logout().then(console.log);
+            // console.log("Logged Out");
             getMEME(subreddits[getRandomInt(subreddits.length)]);
 
         }
 
     }
     catch (error) {
-
-        console.log("got error but dont worry we are trying again")
-        ig.account.logout().then(console.log);
-        console.log("Logged Out");
+        console.log("got error but dont worry we are trying again");
+        console.log(error);
         getMEME(subreddits[getRandomInt(subreddits.length)]);
-
-
     }
 
 
