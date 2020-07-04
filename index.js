@@ -11,7 +11,7 @@ const app = express()
 
 
 var port = process.env.PORT || 3000;
-subreddits = ["wholesomememes", "shittyragecomics", "adhdmeme", "AccidentalComedy", "HotGirlsEatingFruit","MotivationalPics","DirtyMemesx ", "hmmm", "sexygirls","TheRawKnee", "insanepeoplefacebook","GoneMild", "AdviceAnimals", "Funnypics", "funny", "trippinthroughtime", "IndianDankMemes", "PornMemes", "comedyheaven", "pewdiepiesubmissions", "raimimemes", "GetMotivated","memes","AdultMemes", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "Images","NSFWMemes","starterpacks", "woooosh", "ComedyNecrophilia", "thememersclub", "AdultMemes","lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
+subreddits = ["wholesomememes", "shittyragecomics", "adhdmeme", "AccidentalComedy", "goddesses","HotGirlsEatingFruit","MotivationalPics","DirtyMemesx ", "hmmm", "sexygirls","TheRawKnee", "insanepeoplefacebook","GoneMild", "AdviceAnimals", "Funnypics", "funny", "trippinthroughtime", "IndianDankMemes", "PornMemes", "comedyheaven", "pewdiepiesubmissions", "raimimemes", "GetMotivated","memes","AdultMemes", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "Images","NSFWMemes","starterpacks", "woooosh", "ComedyNecrophilia", "thememersclub", "AdultMemes","lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
 var task = cron.schedule('*/9 * * * *', () => {
     console.log(`Posting Meme Every 9 Minute`);
     getMEME(subreddits[getRandomInt(subreddits.length)]);
