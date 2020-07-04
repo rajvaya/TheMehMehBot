@@ -2,7 +2,7 @@ const { IgApiClient } = require('instagram-private-api');
 const { get } = require('request-promise');
 const musakui = require('musakui');
 const express = require('express')
-var cors = require('cors') 
+var cors = require('cors')
 var cron = require('node-cron')
 const tags = require("./hashtags");
 
@@ -11,7 +11,7 @@ const app = express()
 
 
 var port = process.env.PORT || 3000;
-subreddits = ["wholesomememes","confusing_perspective", "SaimanSays","shittyragecomics","classicrage","adhdmeme","iiiiiiitttttttttttt","whothefuckup","AccidentalComedy","ragecomics","aSongOfMemesAndRage","hmmm","TheRawKnee","fffffffuuuuuuuuuuuu","Dogfort","insanepeoplefacebook","AdviceAnimals","Funnypics","funny","trippinthroughtime","IndianDankMemes","okbuddyretard", "antimeme","vertical", "comedyheaven", "pewdiepiesubmissions", "raimimemes",   "memes", "Comedyhomicide", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "starterpacks", "woooosh", "ComedyNecrophilia",  "madlads", "thememersclub", "lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
+subreddits = ["wholesomememes", "shittyragecomics", "adhdmeme", "AccidentalComedy", "HotGirlsEatingFruit","MotivationalPics","DirtyMemesx ", "hmmm", "sexygirls","TheRawKnee", "insanepeoplefacebook","GoneMild", "AdviceAnimals", "Funnypics", "funny", "trippinthroughtime", "IndianDankMemes", "PornMemes", "comedyheaven", "pewdiepiesubmissions", "raimimemes", "GetMotivated","memes","AdultMemes", "dankmemes", "MemeEconomy", "comedyheaven", "comedynecromancy", "Images","NSFWMemes","starterpacks", "woooosh", "ComedyNecrophilia", "thememersclub", "AdultMemes","lotrmemes", "PrequelMemes", "BikiniBottomTwitter", "IndianMeyMeys", "indiameme", "desimemes"] // list of subreddits 
 var task = cron.schedule('*/9 * * * *', () => {
     console.log(`Posting Meme Every 9 Minute`);
     getMEME(subreddits[getRandomInt(subreddits.length)]);
@@ -58,7 +58,7 @@ function getMEME(subreddit) {
     console.log("fetching........ meme form " + subreddit);
     musakui(subreddit)
         .then(result => {
-            console.log("found meme with this caption "+result.title);
+            console.log("found meme with this caption " + result.title);
             postOnInsta(result);
         }
         ).catch(error => {
@@ -67,18 +67,18 @@ function getMEME(subreddit) {
 }
 
 
-  var auth;
+var auth;
 async function postOnInsta(data) {
     // console.log(data);
     try {
         ig.state.generateDevice(IG_USERNAME);
-       if(auth==undefined){
-        auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
-        console.log("Logged in as " + auth.username);
-       }
-       else{
-        console.log("User Found as " + auth.username);
-       }
+        if (auth == undefined) {
+            auth = await ig.account.login(IG_USERNAME, IG_PASSWORD);
+            console.log("Logged in as " + auth.username);
+        }
+        else {
+            console.log("User Found as " + auth.username);
+        }
         var caption = data.title + ".\n.\n.\n.\n.\n.\n" + tags[getRandomInt(tags.length)];
         const imageBuffer = await get({
             url: data.media_url,
