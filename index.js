@@ -45,7 +45,7 @@ app.listen(port, function (req, res) {
 
 
 const IG_USERNAME = "mehmehsome";
-const IG_PASSWORD = "***REMOVED***";
+const IG_PASSWORD = "Removed";
 const ig = new IgApiClient();
 
 
